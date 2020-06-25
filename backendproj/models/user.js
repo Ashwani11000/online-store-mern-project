@@ -41,7 +41,10 @@ var userSchema = new mongoose.Schema({
     dafault: []
   }
 
-});
+},{
+  timestamps: true
+}
+);
 userSchema.virtual("password")
   .set(function(password){
     this._password = password
