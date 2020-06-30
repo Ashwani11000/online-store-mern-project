@@ -38,7 +38,7 @@ var userSchema = new mongoose.Schema({
   },
   purchases: {
     type: Array,
-    dafault: []
+    default: []
   }
 
 },{
@@ -53,7 +53,7 @@ userSchema.virtual("password")
   })
   .get(function(){
     return this._password;
-  })
+  });
 
 
 userSchema.methods = {
@@ -72,8 +72,8 @@ userSchema.methods = {
       return "";
     }
   }
-}
+};
 
 
 
-module.exports = mongoose.model("User", userSchema)
+module.exports = mongoose.model("User", userSchema);
