@@ -85,5 +85,5 @@ exports.signin = (req, res) =>{
 //Protected routes
 exports.isSignedIn = expJwt({
     secret: process.env.SECRET,
-    userProperty: "auth"
+    userProperty: "auth" // This auth is used by the route to get the user id back using req.auth
 });
