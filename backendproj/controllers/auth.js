@@ -5,9 +5,11 @@ var expJwt = require("express-jwt");
 
 exports.signout= (req,res) =>
 {
+    res.clearCookie("token");
     res.json({
         message : "user signed out successfully."
     });
+
 };
 
 exports.signup = (req, res) =>{
