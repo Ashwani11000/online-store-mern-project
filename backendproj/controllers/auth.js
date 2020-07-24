@@ -87,3 +87,22 @@ exports.isSignedIn = expJwt({
     secret: process.env.SECRET,
     userProperty: "auth" // This auth is used by the route to get the user id back using req.auth
 });
+
+exports.isAuthenticated = (req,res,next) => {
+    let checker = req.profile && req.auth && req.profile._id === req.auth.id;
+    if(!checker) {
+        return res.status(403).json({
+            error: "ACCESS DENIED"
+        });
+    }
+    next();
+};
+
+exports.isAdmin = (req,res,next) => {
+    if(req.profile.role === 0) {
+        return res.status(403).json({
+            error: "You are not ADMIN, ACcess DEnied"
+        });
+    }
+    next();
+};

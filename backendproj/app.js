@@ -11,6 +11,9 @@ const cors = require("cors");
 const authRoutes = require("./routes/auth.js");
 // auth.js can be named as auth also
 
+const userRoutes = require("./routes/user");
+// user routes
+
 //Use this as cmd "C:\Program File,s\MongoDB\Server\4.2\bin\mongo.exe"
 
 //DB CONNECTION
@@ -32,7 +35,7 @@ app.use(cors());
 
 //ROUTES
 app.use("/api", authRoutes);
-
+app.use("/api", userRoutes);
 
 // PORT
 const port = process.env.PORT || 8000;

@@ -6,7 +6,7 @@ const categorySchema= new mongoose.Schema({
         type: String,
         trim: true,
         required: true,
-        maxlength: true,
+        maxlength: 32,
         unique: true
     }
 }, {timestamps: true}); //whenever a new category is added to the schema it records the timestamp in the database
