@@ -23,29 +23,9 @@ router.post("/signin", [
 // router.post("/--url--",--Validation for the inputs--,controller);
 
 //protected route
-router.post("/testroute", isSignedIn, (req, res) => {
+router.get("/testroute", isSignedIn, (req, res) => {
     res.json(req.auth);
 
 });
 
-//custom middleware
-exports.isAuthenticated = (req, res, next) =>{
-    let checker = req.profile && req.auth && req.profile._id === req.auth._id;
-    if(!checker)
-    {
-        return res.status(403).json({
-            error: "ACcESs dEnied"
-        })
-    }
-    next();
-}
-
-exports.isAdmin = (req, res, next) =>{
-    if(req.profile.role === 0){
-        return res.status(403).json({
-            error: "Only For Admin"
-        })
-    }
-    next();
-}
 module.exports = router;

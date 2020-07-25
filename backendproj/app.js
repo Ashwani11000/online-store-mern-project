@@ -24,6 +24,8 @@ useCreateIndex : true}).then(()=>{
     console.log("DB CONNECTED");
 }).catch((err) => {
      console.log("DB Error"+err)});
+// run().then().catch()
+
 // body-parser --Parse incoming request bodies in a middleware before your handlers, available under the req.body property
 // cookie-parser
 // cors - Cross Origin Resource Sharing
