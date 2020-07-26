@@ -16,6 +16,10 @@ const userRoutes = require("./routes/user");
 
 const categoryRoutes = require("./routes/category");
 
+const productRoutes = require("./routes/product");
+
+
+
 //Use this as cmd "C:\Program File,s\MongoDB\Server\4.2\bin\mongo.exe"
 
 //DB CONNECTION
@@ -41,6 +45,8 @@ app.use(cors());
 app.use("/api", authRoutes);
 app.use("/api", userRoutes);
 app.use("/api", categoryRoutes);
+app.use("/api", productRoutes);
+
 
 // PORT
 const port = process.env.PORT || 8000;
