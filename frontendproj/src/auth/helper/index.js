@@ -21,7 +21,7 @@ export const signin = user => {
         method: "POST",
         headers:{
             Accept: "application/json",
-            "Content_Type": "application/json"
+            "Content-Type": "application/json"
         },
         body: JSON.stringify(user)
     })
@@ -33,35 +33,35 @@ export const signin = user => {
 
 export const authenticate = (data, next) =>{
     if(typeof window !== "undefined"){
-        localStorage.setItem("jwt",JSON.stringify(data))
+        localStorage.setItem("jwt",JSON.stringify(data));
         next();
     }
-}
+};
 
 export const signout = next => {
     if(typeof window !== "undefined"){
         localStorage.removeItem("jwt")
         next();
 
-        return fetch('${API}/signout',{
+        return fetch(`${API}/signout`,{
             method: "GET"
         })
         .then(response => console.log("Signout Success"))
-        .catch(err => console.log(err))
+        .catch(err => console.log(err));
     }
 };
 
 
 
-export const isAuthenticated = () => {
+export const isAutheticated = () => {
     if(typeof window == "undefined"){
         return false;
     }
-    if(typeof window !== "undefined"){
+    if(localStorage.getItem("jwt")){
         return JSON.parse(localStorage.getItem("jwt"));
 
     }
     else{
         return false;
     }
-}
+};
