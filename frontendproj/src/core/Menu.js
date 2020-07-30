@@ -27,56 +27,60 @@ const Menu = ({ history }) => (
           Cart
         </Link>
       </li>
-      <li className="nav-item">
-        <Link
-          style={currentTab(history, "/user/dashboard")}
-          className="nav-link"
-          to="/user/dashboard"
-        >
-          DashBoard
-        </Link>
-      </li>
-      <li className="nav-item">
-        <Link
-          style={currentTab(history, "/admin/dashboard")}
-          className="nav-link"
-          to="/admin/dashboard"
-        >
-          A. DashBoard
-        </Link>
-      </li>
-      {!isAutheticated() && (
-                <Fragment>
-                <li className="nav-item">
-                  <Link
-                    style={currentTab(history, "/signup")}
-                    className="nav-link"
-                    to="/signup"
-                  >
-                    Sign Up
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link
-                    style={currentTab(history, "/signin")}
-                    className="nav-link"
-                    to="/signin"
-                  >
-                    Sign In
-                  </Link>
-                </li>
-                </Fragment>
+      {isAutheticated() && isAutheticated().user.role === 0 && (
+        <li className="nav-item">
+          <Link
+            style={currentTab(history, "/user/dashboard")}
+            className="nav-link"
+            to="/user/dashboard"
+          >
+            DashBoard
+          </Link>
+        </li>
       )}
-
+      {isAutheticated() && isAutheticated().user.role === 1 && (
+        <li className="nav-item">
+          <Link
+            style={currentTab(history, "/admin/dashboard")}
+            className="nav-link"
+            to="/admin/dashboard"
+          >
+            Admin Panel
+          </Link>
+        </li>
+      )}
+      {!isAutheticated() && (
+        <Fragment>
+          <li className="nav-item">
+            <Link
+              style={currentTab(history, "/signup")}
+              className="nav-link"
+              to="/signup"
+            >
+              Sign Up
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link
+              style={currentTab(history, "/signin")}
+              className="nav-link"
+              to="/signin"
+            >
+              Sign In
+            </Link>
+          </li>
+        </Fragment>
+      )}
 
       {isAutheticated() && (
         <li className="nav-item">
-          <span className = "nav-link text-warning"
-          onClick={()=>{
-              signout(()=>{
-                  history.push("/");
+          <span
+            className="nav-link text-warning"
+            onClick={() => {
+              signout(() => {
+                history.push("/");
               });
-          }}
+            }}
           >
             Sign out
           </span>
