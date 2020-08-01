@@ -84,7 +84,7 @@ export const deleteProduct = (userId, token, productId) => {
 
 
 
-export const UpdateProduct = (productId, userId, token, product) => {
+export const updateProduct = (productId, userId, token, product) => {
     return fetch(`${API}/product/${productId}/${userId}`, {
         method : "PUT",
         headers:{
