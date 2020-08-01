@@ -1,29 +1,62 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react';
 import Base from '../core/Base';
 import { Link } from 'react-router-dom';
-import { createProduct } from './helper/adminapicall';
-
+import { getAllCategories } from './helper/adminapicall';
+import { isAutheticated} from '../auth/helper/index';
 
 const AddProduct= () => {
 
+
+    const {user, token} = isAutheticated();
+
     const {values, setValues} = useState(
         {
-            name:"",
-            description:"",
-            price:"",
-            stock:""
+            name: "",
+            description: "",
+            price: "",
+            stock: "",
+            photo: "",
+            categories: [],
+            category: "",
+            loading: false,
+            error: "",
+            createdProduct: "",
+            getaRedirect: false,
+            formData : ""
         }
     );
     
-    const {name, description, price, stock} = values
+    const {name, description, price, stock, categories, category, loading, error, createdProduct, getaRedirect, formData} = values;
+
+    const preload = ()=>{
+        getAllCategories().then(data => {
+            console.log(data);
+            if(data.error){
+                setValues({...values, error: data.error});
+            
+            }
+            else{
+                setValues({ ...values, categories: data, formData: new FormData()});
+            } 
+        });
+    };
+
+
+
+
+useEffect(()=>{
+    preload();
+},[]);
 
     const onSubmit=(event)=>{
 
     }
 
     const handleChange =(name)=>{
-
-    }
+      const value = name === "photo" ? event.target.file[0] : event.target.value;
+      formData.set(name, value);
+      setValues({ ...values, [name]: value})
+    };
 
 
     const createProductForm = () => (
@@ -74,8 +107,10 @@ const AddProduct= () => {
               placeholder="Category"
             >
               <option>Select</option>
-              <option value="a">a</option>
-              <option value="b">b</option>
+              {categories && 
+              categories.map((cat, index)=>(
+                <option key = {index} value = {cat._id} >cat.name</option>)
+              )}
             </select>
           </div>
           <div className="form-group">
