@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { getAllCategories, getProduct, updateProduct } from "./helper/adminapicall";
 import { isAutheticated } from "../auth/helper/index";
 
-const UpdateProduct = () => {
+const UpdateProduct = ({match}) => {
   const { user, token } = isAutheticated();
 
   const [values, setValues] = useState({
@@ -42,6 +42,8 @@ const UpdateProduct = () => {
       if (data.error) {
         setValues({ ...values, error: data.error });
       } else {
+        preloadCategories();
+
         setValues({ ...values, 
             name: data.name,
             description: data.description,
@@ -54,14 +56,29 @@ const UpdateProduct = () => {
     });
   };
 
+  const preloadCategories = () =>{
+    getAllCategories().then(data =>{
+      if(data.error){
+        setValues({...values, error: data.error });
+      }
+      else{
+        setValues({
+          categories: data, formData: new FormData()
+        })
+      }
+    })
+    
+  }
+
+
   useEffect(() => {
-    preload();
+    preload(match.params.productId);
   }, []);
 
   const onSubmit = (event) => {
     event.preventDefault();
     setValues({...values, error: "", loading:true})
-    updateProduct(user._id, token,formData).then(data=>{
+    updateProduct(match.params.productId, user._id, token,formData).then(data=>{
       if(data.error){
         setValues({...values, error: data.error})
       }
@@ -91,7 +108,7 @@ const UpdateProduct = () => {
     return (
       <div className="alert alert-success mt-3" style={{display :createdProduct ? "" : "none"}}>
         <h4>
-          {createdProduct} created successfully
+          {createdProduct} updated successfully
         </h4>
 
       </div>
@@ -169,7 +186,7 @@ const UpdateProduct = () => {
         onClick={onSubmit}
         className="btn btn-outline-success mb-3"
       >
-        Create Product
+        Update Product
       </button>
     </form>
   );
