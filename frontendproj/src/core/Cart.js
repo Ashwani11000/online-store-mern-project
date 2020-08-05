@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "../styles.css";
-import { API } from "../backend";
+// import { API } from "../backend";
 import Base from "./Base";
 import Card from "./card";
-import { getProducts } from "./helper/coreapicalls";
+// import { getProducts } from "./helper/coreapicalls";
 import { loadCart } from "./helper/cartHelper";
+import StripeCheckout from "./StripeCheckout";
 
 export default function Cart() {
     const [products, setProducts] = useState([]);
@@ -46,7 +47,12 @@ export default function Cart() {
     <Base title="Cart" description="Ready to checkout">
       <div className="row text-center">
           <div className="col-6">{loadAllProducts()}</div>
-          <div className="col-6">{loadCheckout()}</div>        
+          <div className="col-6">
+              <StripeCheckout 
+              products={products}
+              setReload={setReload}
+              />
+        </div>        
       </div>
     </Base>
   );
