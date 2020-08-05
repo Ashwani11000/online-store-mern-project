@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Base from "../core/Base";
 import { isAutheticated } from "../auth/helper";
-import { getProduct, getAllProducts, deleteProduct } from "./helper/adminapicall";
+import { getAllProducts, deleteProduct } from "./helper/adminapicall";
 
 const ManageProducts = () => {
   const [products, setProducts] = useState([]);
