@@ -39,7 +39,9 @@ const StripeCheckout=({products,setReload = f=>f, reload=undefined})=> {
             <h3 className="text-white">
                 stripeCheckout {getFinalPrice()}
             </h3>
-            {showStripeButton()}
+            {
+            showStripeButton()
+            }
         </div>
     )
 }
